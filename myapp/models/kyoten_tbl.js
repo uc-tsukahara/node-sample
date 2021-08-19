@@ -25,11 +25,8 @@
 
 module.exports = (sequelize, DataTypes) => {
   const KYOTEN_TBL = sequelize.define('KYOTEN_TBL', {
-    setsubiName: {
+    kyootenName: {
       type: DataTypes.STRING,
-    },
-    kyotenId: {
-      type:DataTypes.INTEGER,
     }
   }, {});
   KYOTEN_TBL.associate = function(models) {

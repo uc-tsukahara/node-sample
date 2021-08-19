@@ -23,12 +23,7 @@ router.get('/', function(req, res, next) {
       }
     }).then(usr=>{
       if (usr != null) {
-        req.session.login = usr;
-        let back = req.session.back;
-        if (back == null){
-          back = 'login';
-        }
-        res.redirect(back);
+        res.redirect("/menu");
       } else {
         var data = {
           title:'ログイン画面',
@@ -38,5 +33,47 @@ router.get('/', function(req, res, next) {
       }
     })
   });
+
+  router.get('/menu', (req, res, next) => {
+    var data = {
+       title:'メニュー画面',
+       content:''
+    }
+    res.render('menu', data);
+  });
+
+  router.get('/reservation', (req, res, next) => {
+    var data = {
+       title:'会議室予約画面',
+       content:''
+    }
+    res.render('reservation.ejs', data);
+  });
+
+  router.get('/reservation', (req, res, next) => {
+    var data = {
+       title:'会議室予約画面',
+       content:''
+    }
+    res.render('reservation.ejs', data);
+  });
+
+
+  router.get('/roomInfo', (req, res, next) => {
+    var data = {
+       title:'設備情報',
+       content:''
+    }
+    res.render('roomInfo.ejs', data);
+  });
+
+  router.get('/reservationInfo', (req, res, next) => {
+    var data = {
+       title:'予約状況確認画面',
+       content:''
+    }
+    res.render('reservationInfo.ejs', data);
+  });
+
 
 module.exports = router;
