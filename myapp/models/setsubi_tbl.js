@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   SETSUBI_TBL.associate = function(models) {
-    //SETSUBI_TBL.belongToMany(models.KYOTEN_TBL);
+    SETSUBI_TBL.belongsTo(models.KYOTEN_TBL, {foreignKey: 'kyotenId'});
   };
   return SETSUBI_TBL;
 };

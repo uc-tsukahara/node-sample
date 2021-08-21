@@ -25,12 +25,12 @@
 
 module.exports = (sequelize, DataTypes) => {
   const KYOTEN_TBL = sequelize.define('KYOTEN_TBL', {
-    kyootenName: {
+    kyotenName: {
       type: DataTypes.STRING,
     }
   }, {});
   KYOTEN_TBL.associate = function(models) {
-    KYOTEN_TBL.hasMany(models.SETSUBI_TBL);
+    KYOTEN_TBL.hasMany(models.SETSUBI_TBL, {foreignKey: 'kyotenId'});
   };
   return KYOTEN_TBL;
 };

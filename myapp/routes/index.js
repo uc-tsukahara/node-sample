@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
   });
   
   router.post('/login', (req, res, next) => {
+    console.log("ログイン画面");
     models.USER_TBL.findOne({
       where:{
         userName:req.body.userName,
@@ -35,42 +36,41 @@ router.get('/', function(req, res, next) {
   });
 
   router.get('/menu', (req, res, next) => {
+    console.log("メニュー画面");
     var data = {
-       title:'メニュー画面',
-       content:''
+       title:'メニュー画面'
     }
     res.render('menu', data);
   });
 
   router.get('/reservation', (req, res, next) => {
-    var data = {
-       title:'会議室予約画面',
-       content:''
-    }
-    res.render('reservation.ejs', data);
-  });
-
-  router.get('/reservation', (req, res, next) => {
-    var data = {
-       title:'会議室予約画面',
-       content:''
-    }
-    res.render('reservation.ejs', data);
+    console.log("会議室予約画面");
+    models.SETSUBI_TBL.findAll({
+      include: [{
+        model:  models.KYOTEN_TBL,
+        required: true
+    }]
+    }).then(setsubi=>{
+        var data = {
+          title:'会議室予約画面',
+          setsubi:setsubi
+       }
+       console.log(data.setsubi);
+       res.render('reservation.ejs', data);
+    })
   });
 
 
   router.get('/roomInfo', (req, res, next) => {
     var data = {
-       title:'設備情報',
-       content:''
+       title:'設備情報'
     }
     res.render('roomInfo.ejs', data);
   });
 
   router.get('/reservationInfo', (req, res, next) => {
     var data = {
-       title:'予約状況確認画面',
-       content:''
+       title:'予約状況確認画面'
     }
     res.render('reservationInfo.ejs', data);
   });
