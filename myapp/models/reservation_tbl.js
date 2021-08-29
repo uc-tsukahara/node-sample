@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type:DataTypes.INTEGER,
     },
-    statDateTime: {
+    startDateTime: {
       type: DataTypes.DATE,
     },
     endDateTime: {

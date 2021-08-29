@@ -14,7 +14,7 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
-      statDateTime: {
+      startDateTime: {
         type: Sequelize.DATE
       },
       endDateTime: {

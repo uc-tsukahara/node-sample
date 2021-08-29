@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   USER_TBL.associate = function(models) {
-    USER_TBL.hasMany(models.RESERVATION_TBL);
+    USER_TBL.hasMany(models.RESERVATION_TBL, {foreignKey: 'userId'});
   };
   return USER_TBL;
 };
