@@ -39,11 +39,11 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
-jspm_packages/
+myapp/node_modules/
+myapp/jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
-web_modules/
+myapp/web_modules/
 
 # TypeScript cache
 *.tsbuildinfo
@@ -116,4 +116,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-myapp/node_modules/express-session/HISTORY.md
+myapp/node_modules/express-session/HISTORY.mdW
+myapp/node_modules/express-session/index.js
+myapp/node_modules/express-session/LICENSE
