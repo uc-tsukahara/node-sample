@@ -6,3 +6,23 @@ body {
 a {
   color: #00B7FF;
 }
+
+#cover {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  background: rgba(0,0,0,0.25);
+  z-index: 1;
+  display: none;
+}
+
+#modal {
+  position: absolute;
+  width: 33%;
+  left: 33%;
+   top: 20%;
+  height: auto;
+  background: rgba(255,255,255, 1);
+  z-index: 2;
+  display: none;
+}

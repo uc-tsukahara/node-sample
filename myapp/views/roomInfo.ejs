@@ -15,6 +15,31 @@
     <h1 class="display-5">
       <%= title %></h1>
   </header>
+  <div style="margin-bottom:20px">
+    <a class="btn btn-primary" href="/roomRegist" type="button">新規登録</a>
+  </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>会議室</th>
+          <th>設置場所</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (var item of setsubi) { %>
+          <tr>
+            <th><%= item.setsubiName %></th>
+            <th><%= item.KYOTEN_TBL.kyotenName %></th>
+            <th><form action="/roomDelete" method="post">
+              <input type="hidden" name="id" value="<%= item.id %>">
+              <button class="btn btn-danger" type="submit" name="button">削除</button>
+            </form></th>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
 
   <div style="margin-bottom:20px">
     <a class="btn btn-primary" href="/menu" type="button">Back</a>
