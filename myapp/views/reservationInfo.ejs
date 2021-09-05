@@ -10,36 +10,67 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
 
-<body class="container">
-  <header>
-    <h1 class="display-5">
-      <%= title %></h1>
-  </header>
+  <body class="container">
+    <header>
+      <h1 class="display-5">
+        <%= title %></h1>
+    </header>
+    <form action="/reservationSearch" method="post">
+    <div style="margin-bottom:20px">
+      <div class="form-group row">
+        <label for="setsubi" class="col-sm-2 col-form-label">名前</label>
+        <div class="col-sm-8">
+          <span style="float: left;">
+          <input type="text" class="form-control" name="userId" id="userId" value="<%= form.userId %>"  placeholder="ユーザーID">
+        </span>
+          <div style="float: left;margin-left: 10px;">
+          <button class="btn btn-primary" type="submit" name="button">検索</button>
+        </div>
+        </div>
+      </div>
+    </div>
+    </form>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <div style="margin-bottom:20px">
-    <a class="btn btn-primary" href="/menu" type="button">Back</a>
-  </div>
-</body>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>会議室</th>
+            <th>開始日</th>
+            <th>終了日</th>
+            <th>予約者</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (var item of reservation) { %>
+            <tr>
+              <td><%= item.SETSUBI_TBL.setsubiName %>(<%= item.SETSUBI_TBL.KYOTEN_TBL.kyotenName %>)</td>
+              <td><%= moment.utc(item.startDateTime).format('YYYY/MM/DD日 HH:mm') %></td>
+              <td><%= moment.utc(item.endDateTime).format('YYYY/MM/DD日 HH:mm') %></td>
+              <td><%= item.USER_TBL.userName %></td>
+              <td>
+                <% if (userId === item.userId) { %>
+                <span style="float: left;">
+                <form action="/reservationUpdate" method="post">
+                  <input type="hidden" name="id" value="<%= item.id %>">
+                  <button class="btn btn-primary" type="submit" name="button">更新</button>
+                </form>
+                </span>
+              <div style="float: left;margin-left: 10px;">
+                <form action="/reservationDelete" method="post">
+                  <input type="hidden" name="id" value="<%= item.id %>">
+                  <button class="btn btn-danger" type="submit" name="button">削除</button>
+                </form>
+              </div>
+              <% } %>
+            </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <p><%- content %></p>
+    <div style="margin-bottom:20px">
+      <a class="btn btn-primary" href="/menu" type="button">Back</a>
+    </div>
+  </body>
 </html>

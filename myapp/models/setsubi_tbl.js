@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   SETSUBI_TBL.associate = function(models) {
     SETSUBI_TBL.belongsTo(models.KYOTEN_TBL, {foreignKey: 'kyotenId'});
+    SETSUBI_TBL.hasMany(models.RESERVATION_TBL, {foreignKey: 'setsubiId'});
   };
   return SETSUBI_TBL;
 };

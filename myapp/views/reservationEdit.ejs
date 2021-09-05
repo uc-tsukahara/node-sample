@@ -20,6 +20,12 @@
   <script type="text/javascript">
     //<!--
       $(function() {
+        $('#startDate').datetimepicker();
+      });
+      $(function() {
+        $('#endDate').datetimepicker();
+      });
+      $(function() {
         $('#clear').on('click',function() {
           $('form').find('select').val("1");
           $('form').find(':text').val("");
@@ -35,22 +41,34 @@
       <%= title %></h1>
   </header>
 
-  <form method="post" action="/roomRegist">
+  <form method="post" action="/reservationEdit">
     <div class="form-group row">
       <label for="setsubi" class="col-sm-2 col-form-label">設備</label>
-      <div class="col-sm-8">
-        <input type="text" class="form-control" name="setsubi" id="setsubi" value="<%= form.setsubi %>"  placeholder="設備">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="kyoten" class="col-sm-2 col-form-label">拠点</label>
-    <select name="kyoten" required class="col-sm-8">
-        <% for (var item of kyoten) { %>
-          <option value="<%= item.id %>"><%= item.kyotenName %></option>
+    <select name="setsubi" required class="col-sm-8">
+        <% for (var item of setsubi) { %>
+          <option value="<%= item.id %>"><%= item.setsubiName %> (<%= item.KYOTEN_TBL.kyotenName %>)</option>
         <% } %>
     </select>
     </div>
-  
+    <div class="form-group row">
+      <label for="start" class="col-sm-2 col-form-label">日時（始）</label>
+      <div class="col-sm-8">
+        <input type="text" name="startDate" id="startDate" value="<%= moment.utc(form.startDateTime).format('YYYY/MM/DD HH:mm') %>" class="form-control" placeholder="日時（始）">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="endDate" class="col-sm-2 col-form-label">日時（終）</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="endDate" id="endDate" value="<%= moment.utc(form.endDateTime).format('YYYY/MM/DD HH:mm') %>" placeholder="日時（終）">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="purpose" class="col-sm-2 col-form-label">使用目的</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="purpose" id="purpose" value="<%= form.purpose %>"  placeholder="使用目的">
+      </div>
+    </div>
+    <input type="hidden" name="id" value="<%= form.id %>">
     <div class="form-group row">
       <div class="col-sm-8 offset-sm-2">
         <button type="button" id="clear" class="btn btn-primary">クリア</button>
@@ -61,7 +79,7 @@
 </form>
 
   <div style="margin-bottom:20px">
-    <a class="btn btn-primary" href="/roomInfo" type="button">Back</a>
+    <a class="btn btn-primary" href="/menu" type="button">Back</a>
   </div>
 </body>
 </html>

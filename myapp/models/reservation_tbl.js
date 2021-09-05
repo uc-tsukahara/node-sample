@@ -49,6 +49,10 @@ module.exports = (sequelize, DataTypes) => {
   RESERVATION_TBL.associate = function(models) {
     //RESERVATION_TBL.belongTo(models.USER_TBL);
     //RESERVATION_TBL.belongTo(models.SETSUBI_TBL);
+    //RESERVATION_TBL.hasMany(models.SETSUBI_TBL, {foreignKey: 'id'});
+    //RESERVATION_TBL.hasMany(models.USER_TBL, {foreignKey: 'id'});
+    RESERVATION_TBL.belongsTo(models.SETSUBI_TBL, {foreignKey: 'setsubiId'});
+    RESERVATION_TBL.belongsTo(models.USER_TBL, {foreignKey: 'userId'});
   };
   return RESERVATION_TBL;
 };

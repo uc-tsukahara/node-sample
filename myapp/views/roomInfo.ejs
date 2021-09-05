@@ -30,17 +30,27 @@
       <tbody>
         <% for (var item of setsubi) { %>
           <tr>
-            <th><%= item.setsubiName %></th>
-            <th><%= item.KYOTEN_TBL.kyotenName %></th>
-            <th><form action="/roomDelete" method="post">
-              <input type="hidden" name="id" value="<%= item.id %>">
-              <button class="btn btn-danger" type="submit" name="button">削除</button>
-            </form></th>
+            <td><%= item.setsubiName %></td>
+            <td><%= item.KYOTEN_TBL.kyotenName %></td>
+            <td>
+              <span style="float: left;">
+              <form action="/roomUpdate" method="post">
+                <input type="hidden" name="id" value="<%= item.id %>">
+                <button class="btn btn-primary" type="submit" name="button">更新</button>
+              </form>
+              </span>
+            <div style="float: left;margin-left: 10px;">
+              <form action="/roomDelete" method="post">
+                <input type="hidden" name="id" value="<%= item.id %>">
+                <button class="btn btn-danger" type="submit" name="button">削除</button>
+              </form>
+            </div>
+          </td>
           </tr>
         <% } %>
       </tbody>
     </table>
-
+    <p><%- content %></p>
   <div style="margin-bottom:20px">
     <a class="btn btn-primary" href="/menu" type="button">Back</a>
   </div>
