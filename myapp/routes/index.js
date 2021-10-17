@@ -259,7 +259,7 @@ router.post('/roomUpdate', (req, res, next) => {
 });
 
 //設備情報更新画面　更新
-router.post('/roomEdit', [
+ router.post('/roomEdit', [
   check('setsubi','設備が未入力です').notEmpty()
 ],(req, res, next) => {
   console.log("session:", req.session.userId);
@@ -280,7 +280,7 @@ router.post('/roomEdit', [
             form: req.body
           }
           res.render('roomEdit.ejs', data);
-      })      
+      })
   }
   
   //更新処理
@@ -293,20 +293,21 @@ router.post('/roomEdit', [
     {
       where: {id: req.body.id}
     }
-  );
-  models.SETSUBI_TBL.findAll({
-    include: [{
-      model:  models.KYOTEN_TBL,
-      required: true
-  }]
-  }).then(setsubi=>{
-      var data = {
-        title:'設備情報',
-        setsubi:setsubi,
-        content:"更新が正常に完了しました",
-      }
-      res.render('roomInfo.ejs', data);
-  })
+  ).then(upd => {
+    models.SETSUBI_TBL.findAll({
+      include: [{
+        model:  models.KYOTEN_TBL,
+        required: true
+    }]
+    }).then(setsubi=>{
+        var data = {
+          title:'設備情報',
+          setsubi:setsubi,
+          content:"更新が正常に完了しました",
+        }
+        res.render('roomInfo.ejs', data);
+    })
+  });
 });
 
 //設備情報削除
@@ -457,6 +458,8 @@ router.post('/reservationEdit', [
   check('endDate','日時（終）が未入力です').notEmpty()
 ],(req, res, next) => {
   console.log("更新チェック", req.body.id);
+
+  //console.log("更新チェック", req.body);
  //セッションIDが空だったらログイン画面に戻る
   if (!req.session.userId) {
     console.log("セッション切れ");
@@ -464,7 +467,9 @@ router.post('/reservationEdit', [
   }
   //入力チェック
   var errors = validationResult(req);
+  //console.log(errors);
   if (!errors.isEmpty()) {
+    console.log("エラー！")
       var result = '<ul class="text-danger">';
       var result_arr = errors.array();
       for(var n in result_arr) {
@@ -474,12 +479,12 @@ router.post('/reservationEdit', [
         include: [{
           model:  models.KYOTEN_TBL,
           required: true
-      }]
+        }]
       }).then(setsubi=>{
         var data = {
           title:'会議室予約(編集)',
           setsubi:setsubi,
-          content:"",
+          content: result,
           moment: moment,
           form:req.body
         }
